@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.4.1'
+ruby IO.read('.ruby-version').strip
+
 gem 'rspec'
