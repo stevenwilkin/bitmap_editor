@@ -36,7 +36,7 @@ RSpec.describe BitmapEditor do
         END
       end
 
-      xspecify { expect { run_editor }.to output(bitmap).to_stdout }
+      specify { expect { run_editor }.to output(bitmap).to_stdout }
     end
   end
 end
