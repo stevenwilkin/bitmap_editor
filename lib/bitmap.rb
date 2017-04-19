@@ -11,4 +11,11 @@ class Bitmap
   def render
     @pixels.reduce('') { |result, row| result.concat(row.join, "\n") }.chomp
   end
+
+  def pixel(column, row, colour)
+    raise ArgumentError if row > @rows
+    raise ArgumentError if column > @columns
+
+    @pixels[row - 1][column - 1] = colour
+  end
 end

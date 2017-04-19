@@ -3,6 +3,7 @@ require 'bitmap'
 RSpec.describe Bitmap do
   let(:columns) { 3 }
   let(:rows) { 2 }
+  let(:bitmap) { described_class.new(columns, rows) }
 
   describe '.new' do
     subject do
@@ -39,7 +40,6 @@ RSpec.describe Bitmap do
   end
 
   describe '#render' do
-    let(:bitmap) { described_class.new(columns, rows) }
     let(:output) do
       <<~ENO
         OOO
@@ -50,5 +50,44 @@ RSpec.describe Bitmap do
     subject { bitmap.render }
 
     it { is_expected.to eq(output.chomp) }
+  end
+
+  describe '#pixel' do
+    let(:column) { 2 }
+    let(:row) { 1 }
+    let(:colour) { 'C' }
+
+    def set_pixel
+      bitmap.pixel(column, row, colour)
+    end
+
+    context 'with an out-of-bounds column' do
+      let(:column) { 4 }
+
+      specify { expect { set_pixel }.to raise_error(ArgumentError) }
+    end
+
+    context 'with an out-of-bounds row' do
+      let(:row) { 3 }
+
+      specify { expect { set_pixel }.to raise_error(ArgumentError) }
+    end
+
+    context 'with valid arguments' do
+      let(:output) do
+        <<~ENO
+          OCO
+          OOO
+        ENO
+      end
+
+      before do
+        set_pixel
+      end
+
+      subject { bitmap.render }
+
+      it { is_expected.to eq(output.chomp) }
+    end
   end
 end
