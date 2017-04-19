@@ -33,4 +33,15 @@ class Bitmap
       @pixels[row - 1][column - 1] = colour
     end
   end
+
+  def horizontal_line(start_column, end_column, row, colour)
+    raise ArgumentError if row > @rows
+    raise ArgumentError if start_column > @columns
+    raise ArgumentError if end_column > @columns
+    raise ArgumentError if start_column > end_column
+
+    start_column.upto(end_column) do |column|
+      @pixels[row - 1][column - 1] = colour
+    end
+  end
 end

@@ -159,4 +159,55 @@ RSpec.describe Bitmap do
       it { is_expected.to eq(output.chomp) }
     end
   end
+
+  describe '#horizontal_line' do
+    let(:row) { 2 }
+    let(:start_column) { 2 }
+    let(:end_column) { 3 }
+    let(:output) do
+      <<~ENO
+        OOO
+        OCC
+      ENO
+    end
+
+    def draw_line
+      bitmap.horizontal_line(start_column, end_column, row, colour)
+    end
+
+    context 'with an out-of-bounds row' do
+      let(:row) { 3 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with an out-of-bounds start column' do
+      let(:start_column) { 4 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with an out-of-bounds end column' do
+      let(:start_column) { 4 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with an end context before the start column' do
+      let(:end_column) { 1 }
+      let(:start_column) { 2 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with valid arguments' do
+      before do
+        draw_line
+      end
+
+      subject { bitmap.render }
+
+      it { is_expected.to eq(output.chomp) }
+    end
+  end
 end
