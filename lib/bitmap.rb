@@ -1,10 +1,7 @@
 class Bitmap
   def initialize(columns, rows)
-    raise ArgumentError unless columns.to_i > 0
-    raise ArgumentError unless rows.to_i > 0
-
-    @columns = columns.to_i
-    @rows = rows.to_i
+    @columns = columns
+    @rows = rows
     clear
   end
 
