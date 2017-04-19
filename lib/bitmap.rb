@@ -22,4 +22,15 @@ class Bitmap
 
     @pixels[row - 1][column - 1] = colour
   end
+
+  def vertical_line(column, start_row, end_row, colour)
+    raise ArgumentError if column > @columns
+    raise ArgumentError if start_row > @rows
+    raise ArgumentError if end_row > @rows
+    raise ArgumentError if start_row > end_row
+
+    start_row.upto(end_row) do |row|
+      @pixels[row - 1][column - 1] = colour
+    end
+  end
 end

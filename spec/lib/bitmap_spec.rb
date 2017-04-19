@@ -3,6 +3,7 @@ require 'bitmap'
 RSpec.describe Bitmap do
   let(:columns) { 3 }
   let(:rows) { 2 }
+  let(:colour) { 'C' }
   let(:bitmap) { described_class.new(columns, rows) }
 
   describe '.new' do
@@ -55,7 +56,6 @@ RSpec.describe Bitmap do
   describe '#pixel' do
     let(:column) { 2 }
     let(:row) { 1 }
-    let(:colour) { 'C' }
 
     def set_pixel
       bitmap.pixel(column, row, colour)
@@ -107,5 +107,56 @@ RSpec.describe Bitmap do
     subject { bitmap.render }
 
     it { is_expected.to eq(output.chomp) }
+  end
+
+  describe '#vertical_line' do
+    let(:column) { 3 }
+    let(:start_row) { 2 }
+    let(:end_row) { 2 }
+    let(:output) do
+      <<~ENO
+        OOO
+        OOC
+      ENO
+    end
+
+    def draw_line
+      bitmap.vertical_line(column, start_row, end_row, colour)
+    end
+
+    context 'with an out-of-bounds column' do
+      let(:column) { 4 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with an out-of-bounds start row' do
+      let(:start_row) { 3 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with an out-of-bounds end row' do
+      let(:start_row) { 3 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with an end row before the start row' do
+      let(:end_row) { 1 }
+      let(:start_row) { 2 }
+
+      specify { expect { draw_line }.to raise_error(ArgumentError) }
+    end
+
+    context 'with valid arguments' do
+      before do
+        draw_line
+      end
+
+      subject { bitmap.render }
+
+      it { is_expected.to eq(output.chomp) }
+    end
   end
 end
