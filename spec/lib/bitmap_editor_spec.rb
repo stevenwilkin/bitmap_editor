@@ -3,6 +3,12 @@ require 'bitmap_editor'
 RSpec.describe BitmapEditor do
   let(:root) { File.join(File.dirname(__FILE__), '..', '..') }
 
+  describe '#bitmap' do
+    subject(:bitmap) { described_class.new.bitmap }
+
+    it { is_expected.to be_a(NullBitmap) }
+  end
+
   describe '#run' do
     let(:input) { '/path/to/input' }
 
