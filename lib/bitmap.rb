@@ -5,11 +5,15 @@ class Bitmap
 
     @columns = columns.to_i
     @rows = rows.to_i
-    @pixels = Array.new(@rows) { Array.new(@columns, 'O') }
+    clear
   end
 
   def render
     @pixels.reduce('') { |result, row| result.concat(row.join, "\n") }.chomp
+  end
+
+  def clear
+    @pixels = Array.new(@rows) { Array.new(@columns, 'O') }
   end
 
   def pixel(column, row, colour)

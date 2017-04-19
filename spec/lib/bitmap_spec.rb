@@ -90,4 +90,22 @@ RSpec.describe Bitmap do
       it { is_expected.to eq(output.chomp) }
     end
   end
+
+  describe '#clear' do
+    let(:output) do
+      <<~ENO
+        OOO
+        OOO
+      ENO
+    end
+
+    before do
+      bitmap.pixel(1, 1, 'C')
+      bitmap.clear
+    end
+
+    subject { bitmap.render }
+
+    it { is_expected.to eq(output.chomp) }
+  end
 end
