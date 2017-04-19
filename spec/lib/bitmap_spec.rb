@@ -37,4 +37,18 @@ RSpec.describe Bitmap do
       it { is_expected.to_not raise_error }
     end
   end
+
+  describe '#render' do
+    let(:bitmap) { described_class.new(columns, rows) }
+    let(:output) do
+      <<~ENO
+        OOO
+        OOO
+      ENO
+    end
+
+    subject { bitmap.render }
+
+    it { is_expected.to eq(output.chomp) }
+  end
 end
