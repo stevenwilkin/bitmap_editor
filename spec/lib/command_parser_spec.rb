@@ -50,5 +50,12 @@ RSpec.describe CommandParser do
       specify { expect(command).to eq(:vertical_line) }
       specify { expect(args).to eq([10, 5, 10, 'C']) }
     end
+
+    context 'with the horizontal line command' do
+      let(:input) { 'H 10 5 10 C' }
+
+      specify { expect(command).to eq(:horizontal_line) }
+      specify { expect(args).to eq([10, 5, 10, 'C']) }
+    end
   end
 end
