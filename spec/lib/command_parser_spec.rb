@@ -16,6 +16,12 @@ RSpec.describe CommandParser do
       specify { expect { parse_input }.to raise_error(/unrecognised/) }
     end
 
+    context 'with a zero coordinate' do
+      let(:input) { 'I 0 20' }
+
+      specify { expect { parse_input }.to raise_error(/non-zero/) }
+    end
+
     context 'with the clear command' do
       let(:input) { 'C' }
 
