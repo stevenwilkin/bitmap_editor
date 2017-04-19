@@ -36,5 +36,12 @@ RSpec.describe CommandParser do
       specify { expect(command).to eq(:initialise) }
       specify { expect(args).to eq([50, 20]) }
     end
+
+    context 'with the pixel command' do
+      let(:input) { 'L 10 5 C' }
+
+      specify { expect(command).to eq(:pixel) }
+      specify { expect(args).to eq([10, 5, 'C']) }
+    end
   end
 end
