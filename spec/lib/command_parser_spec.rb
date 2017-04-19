@@ -29,5 +29,12 @@ RSpec.describe CommandParser do
       specify { expect(command).to eq(:render) }
       specify { expect(args).to be_empty }
     end
+
+    context 'with the initialise command' do
+      let(:input) { 'I 50 20' }
+
+      specify { expect(command).to eq(:initialise) }
+      specify { expect(args).to eq([50, 20]) }
+    end
   end
 end
