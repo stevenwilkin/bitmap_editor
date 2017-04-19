@@ -43,5 +43,12 @@ RSpec.describe CommandParser do
       specify { expect(command).to eq(:pixel) }
       specify { expect(args).to eq([10, 5, 'C']) }
     end
+
+    context 'with the vertical line command' do
+      let(:input) { 'V 10 5 10 C' }
+
+      specify { expect(command).to eq(:vertical_line) }
+      specify { expect(args).to eq([10, 5, 10, 'C']) }
+    end
   end
 end
