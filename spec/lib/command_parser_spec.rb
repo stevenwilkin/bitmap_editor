@@ -22,5 +22,12 @@ RSpec.describe CommandParser do
       specify { expect(command).to eq(:clear) }
       specify { expect(args).to be_empty }
     end
+
+    context 'with the show command' do
+      let(:input) { 'S' }
+
+      specify { expect(command).to eq(:render) }
+      specify { expect(args).to be_empty }
+    end
   end
 end
